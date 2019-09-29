@@ -1,10 +1,10 @@
 {
-  "name": "r_flutter_vscode",
-  "displayName": "r_flutter_vscode",
-  "description": "r_flutter_vscode",
+  "name": "r-flutter-vscode",
+  "displayName": "r-flutter-vscode",
+  "description": "VSCode helpers for r_flutter package",
   "version": "0.1.0",
   "publisher": "szotp",
-  "repository": "https://github.com/szotp/r_flutter_vscode",
+  "repository": "https://github.com/szotp/r-flutter-vscode",
   "engines": {
     "vscode": "^1.32.0"
   },
@@ -17,7 +17,15 @@
   "license": "MIT",
   "main": "./out/extension.js",
   "contributes": {
-    "commands": []
+    "commands": [],
+    "languages": [
+      {
+        "id": "json",
+        "extensions": [
+          "arb"
+        ]
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -27,7 +35,9 @@
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "dependencies": {
+    "@types/js-yaml": "^3.12.1",
     "google-translate": "^2.2.0",
+    "js-yaml": "^3.13.1",
     "locale-code": "^2.0.2",
     "rtl-detect": "^1.0.2"
   },

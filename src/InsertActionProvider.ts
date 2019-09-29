@@ -1,5 +1,9 @@
 import { CodeActionProvider, CodeActionKind, Range, CodeAction, TextDocument, DocumentFilter, CodeActionContext, Diagnostic, window } from "vscode";
 import * as vs from "vscode";
+import * as yaml from "js-yaml";
+import * as fs from 'fs';
+import * as path from 'path';
+import * as cp from 'child_process';
 
 interface CommandInput {
     name: string;
@@ -73,9 +77,29 @@ export class InsertActionProvider implements CodeActionProvider {
     }
 
     async addEntryToDefaultLocale(key: string, value: string): Promise<void> {
-        let root = vs.workspace.workspaceFolders![0];
-        let pubspecPath = root.uri.path + '/pubspec.yaml';
-        
+        let root = vs.workspace.workspaceFolders![0].uri;
+        let pubspecPath = path.join(root.fsPath, 'pubspec.yaml');
+
+        let config: Pubspec = yaml.safeLoad(fs.readFileSync(pubspecPath, 'utf8'));
+        let intlPath = path.join(root.fsPath, config.r_flutter.intl);
+
+        let strings: { [id: string]: any } = JSON.parse(fs.readFileSync(intlPath, 'utf8'));
+        strings[key] = value;
+        fs.writeFileSync(intlPath, JSON.stringify(strings, null, '  '));
         //vs.commands.executeCommand("workbench.action.reloadWindow");
+
+        cp.exec('flutter generate', { cwd: root.fsPath }, (err, stdout, stderr) => {
+            if (err != null) {
+                window.showErrorMessage('Failed to add item.');
+            } else {
+                window.showInformationMessage('Item added. You may need to reload window to silence analyzer warning...');
+            }
+        });
+    }
+}
+
+interface Pubspec {
+    r_flutter: {
+        intl: string
     }
 }

@@ -1,20 +1,15 @@
-import {
-    commands,
-    window,
-    ExtensionContext,
-    languages,
-} from "vscode";
+import * as vs from "vscode";
 
 
 import { InsertActionProvider } from "./InsertActionProvider";
 
-export function activate(context: ExtensionContext) {
+export function activate(context: vs.ExtensionContext) {
     const subscriptions = context.subscriptions;
     const provider = new InsertActionProvider();
 
-    subscriptions.push(languages.registerCodeActionsProvider(provider.filter, provider));
+    subscriptions.push(vs.languages.registerCodeActionsProvider(provider.filter, provider));
 
-    subscriptions.push(commands.registerCommand(provider.actionName, (input) => {
+    subscriptions.push(vs.commands.registerCommand(provider.actionName, (input) => {
         provider.insertAsync(input);
     }));
 }
