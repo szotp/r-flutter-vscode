@@ -1,0 +1,45 @@
+{
+  "name": "r_flutter_vscode",
+  "displayName": "r_flutter_vscode",
+  "description": "r_flutter_vscode",
+  "version": "0.1.0",
+  "publisher": "szotp",
+  "repository": "https://github.com/szotp/r_flutter_vscode",
+  "engines": {
+    "vscode": "^1.32.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:dart"
+  ],
+  "license": "MIT",
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": []
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "dependencies": {
+    "google-translate": "^2.2.0",
+    "locale-code": "^2.0.2",
+    "rtl-detect": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.0.10",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.2",
+    "vscode": "^1.1.34"
+  },
+  "galleryBanner": {
+    "color": "#ed8a00",
+    "theme": "dark"
+  }
+}
