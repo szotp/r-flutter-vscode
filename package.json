@@ -2,7 +2,7 @@
   "name": "r-flutter-vscode",
   "displayName": "r-flutter-vscode",
   "description": "VSCode helpers for r_flutter package",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "szotp",
   "repository": "https://github.com/szotp/r-flutter-vscode",
   "engines": {
@@ -17,7 +17,18 @@
   "license": "MIT",
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [],
+    "commands": [
+      {
+        "command": "r_flutter.runRegenerate",
+        "title": "r_flutter: Regenerate file",
+        "category": "Flutter"
+      },
+      {
+        "command": "r_flutter.runFileCheck",
+        "title": "r_flutter: Check file for missing localizations",
+        "category": "Flutter"
+      }
+    ],
     "languages": [
       {
         "id": "json",
@@ -25,7 +36,18 @@
           "arb"
         ]
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Dart & Flutter",
+      "properties": {
+        "r_flutter.shellCommand": {
+          "type": "string",
+          "default": "flutter generate",
+          "scope": "window"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
